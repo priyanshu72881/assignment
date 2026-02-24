@@ -46,7 +46,7 @@ jobs:
               git clone https://github.com/priyanshu72881/assignment.git
             fi
 
-            cd mean-app
+            cd assignment
 
             # Pull latest code
             git pull origin main
