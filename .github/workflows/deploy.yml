@@ -51,6 +51,8 @@ jobs:
             # Pull latest code
             git pull origin main
 
+            sudo systemctl start docker
+
             # Clean old docker junk (avoid no space issue)
             sudo docker system prune -a -f
 
