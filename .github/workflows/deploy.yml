@@ -38,7 +38,27 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd ~/mean-app
-            sudo docker-compose pull
+            # Go to home directory
+            cd /home/ubuntu
+
+            # Clone repo if not exists
+            if [ ! -d "mean-app" ]; then
+              git clone https://github.com/priyanshu72881/assignment.git
+            fi
+
+            cd mean-app
+
+            # Pull latest code
+            git pull origin main
+
+            # Clean old docker junk (avoid no space issue)
+            sudo docker system prune -a -f
+
+            # Stop old containers
             sudo docker-compose down
+
+            # Pull latest images from Docker Hub
+            sudo docker-compose pull
+
+            # Start containers
             sudo docker-compose up -d
