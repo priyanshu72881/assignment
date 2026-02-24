@@ -1,6 +1,4 @@
 const express = require("express");
-//const cors = require("cors");
-
 const app = express();
 
 // parse requests of content-type - application/json
@@ -9,17 +7,21 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-const db = require("./app/models");
-db.mongoose
-  .connect(db.url, {
+const mongoose = require("mongoose");
+
+// 🔥 IMPORTANT: Docker ke liye MONGO_URI use karega
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/test";
+
+mongoose
+  .connect(MONGO_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connected to the database!");
+    console.log("✅ Connected to the database!");
   })
-  .catch(err => {
-    console.log("Cannot connect to the database!", err);
+  .catch((err) => {
+    console.log("❌ Cannot connect to the database!", err);
     process.exit();
   });
 
@@ -33,5 +35,5 @@ require("./app/routes/turorial.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`🚀 Server is running on port ${PORT}.`);
 });

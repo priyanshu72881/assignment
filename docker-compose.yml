@@ -6,7 +6,7 @@ services:
       - "27017:27017"
 
   backend:
-    build: ./backend
+    image: priyanshu72881370/dd-backend:latest
     container_name: backend
     ports:
       - "8080:8080"
@@ -16,7 +16,7 @@ services:
       - MONGO_URI=mongodb://mongo:27017/test
 
   frontend:
-    build: ./frontend
+    image: priyanshu72881370/dd-frontend:latest
     container_name: frontend
     ports:
       - "80:80"
